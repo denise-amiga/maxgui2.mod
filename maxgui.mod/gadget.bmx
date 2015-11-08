@@ -151,7 +151,6 @@ Const GADGETITEM_NONE=-1
 Const GADGETITEM_NORMAL=0
 Const GADGETITEM_DEFAULT=1
 Const GADGETITEM_TOGGLE=2
-Const GADGETITEM_LOCALIZED=4
 
 Const SENSITIZE_MOUSE=1
 Const SENSITIZE_KEYS=2
@@ -196,11 +195,7 @@ Type TGadget
 	Field	items:TGadgetItem[]
 
 	Global dragGadget:TGadget[3]
-	
-	Global LocalizeString$( text$ ) 'set at the bottom of maxgui.mod/driver.bmx
-	'Global LocalizeGadget( gadget:TGadget, text$ )
-	Global DelocalizeGadget( gadget:TGadget )
-	
+		
 ' core methods
 	
 	Method SetFilter(callback(event:TEvent,context:Object),user:Object)
@@ -492,11 +487,8 @@ Type TGadget
 		Next
 		items[index]=New TGadgetItem
 		items[index].Set(text,tip,icon,extra,flags)
-		If flags&GADGETITEM_LOCALIZED Then
-			InsertListItem(index,LocalizeString(text),LocalizeString(tip),icon,extra)
-		Else
-			InsertListItem(index,text,tip,icon,extra)
-		EndIf
+
+		InsertListItem(index,text,tip,icon,extra)
 		If flags&GADGETITEM_DEFAULT SelectItem(index)
 	End Method
 	
@@ -506,11 +498,7 @@ Type TGadget
 		If index<0 Or index>=items.length Throw "Gadget item index out of range."
 ?
 		items[index].Set(text,tip,icon,extra,flags)
-		If flags&GADGETITEM_LOCALIZED Then
-			SetListItem(index,LocalizeString(text),LocalizeString(tip),icon,extra)
-		Else
-			SetListItem(index,text,tip,icon,extra)
-		EndIf
+		SetListItem(index,text,tip,icon,extra)
 		If flags&GADGETITEM_DEFAULT SelectItem(index)
 	End Method
 	
@@ -637,7 +625,6 @@ Type TGadget
 		Next
 		Free()
 		
-		DelocalizeGadget( Self )
 		kids.Clear();parent = Null;extra = Null
 		eventfilter = Null;context = Null;items = Null
 		

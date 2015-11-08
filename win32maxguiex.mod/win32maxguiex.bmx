@@ -440,11 +440,7 @@ Type TWindowsGUIDriver Extends TMaxGUIDriver
 				Return gadget
 		End Select
 		
-		If LocalizationMode() & LOCALIZATION_OVERRIDE Then
-			LocalizeGadget(gadget,Text,"")
-		Else
-			gadget.SetText(Text)
-		EndIf
+		gadget.SetText(Text)
 		
 		If group Then gadget._SetParent group
 		If class <> GADGET_TOOLBAR Then gadget.SetShape(x,y,w,h)
@@ -2769,7 +2765,6 @@ Type TWindowsListBox Extends TWindowsGadget
 				If tmpItemIndex < items.length Then
 					
 					Local tmpTipString$ = items[tmpItemIndex].tip
-					If (items[tmpItemIndex].flags&GADGETITEM_LOCALIZED) Then tmpTipString = LocalizeString(tmpTipString)
 					
 					tmpTipString = tmpTipString[..Min(tmpTipString.length,tmpMaxCharCount)]
 					
@@ -3272,7 +3267,6 @@ Type TWindowsTabber Extends TWindowsGadget
 				
 				If (tmpItem > -1) And (tmpItem < items.length) Then
 					Local tmpTooltip$ = items[tmpItem].tip
-					If (items[tmpItem].flags&GADGETITEM_LOCALIZED) Then tmpTooltip = LocalizeString(tmpTooltip)
 					SetTipBuffer( tmpTooltip )
 					If tmpTooltip Then nmhdr[3] = Int(_tipbuffer)
 				EndIf

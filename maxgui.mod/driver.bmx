@@ -3,7 +3,6 @@ Strict
 Import "gadget.bmx"
 Import "guifont.bmx"
 
-Import MaxGUI.Localization
 Import Brl.Map
 
 Type TMaxGUIDriver
@@ -106,87 +105,7 @@ Type TMaxGUIDriver
 		Return LoadFont(name,Int(size+0.5),flags)
 	EndMethod
 	
-	' Localization Code
-	
-	Field _mapLocalized:TMap = CreateMap()
-	
-	Method SetLocalizationMode( mode:Int )
-		Local tmpApply:Int = False
-		If (LocalizationMode() ~ mode) & LOCALIZATION_ON Then tmpApply = True
-		engine_SetLocalizationMode(mode)
-		If tmpApply Then ApplyLanguage()
-	EndMethod
-	
-	Method SetLanguage( language:TMaxGUILanguage )
-		engine_SetLocalizationLanguage(language)
-		ApplyLanguage()
-	EndMethod
-	
-	Method ApplyLanguage()
-		For Local tmpGadget:TGadget = EachIn MapKeys(_mapLocalized)
-			ApplyLocalization( tmpGadget )
-		Next
-	EndMethod
-	
-	Method SetGadgetLocalization( gadget:TGadget, text$, tooltip$ )
-		If gadget Then
-			MapInsert _mapLocalized, gadget, [text,tooltip]
-			ApplyLocalization( gadget )
-		EndIf
-	EndMethod
-	
-	Method ApplyLocalization( gadget:TGadget )
-		If gadget.Class() <> GADGET_CANVAS Then
-			Local tmpString$[] = String[](MapValueForKey( _mapLocalized, gadget ))
-			gadget.SetText(LocalizeString(tmpString[0]))
-			gadget.SetTooltip(LocalizeString(tmpString[1]))
-			For Local i:Int = 0 Until gadget.items.length
-				If Max(gadget.ItemFlags(i),0)&GADGETITEM_LOCALIZED Then
-					LocalizeGadgetItem( gadget, i )
-				EndIf
-			Next
-		EndIf
-	EndMethod
-	
-	Method LocalizeGadgetItem( gadget:TGadget, index:Int )
-		gadget.SetListItem(index,LocalizeString(gadget.ItemText(index)),LocalizeString(gadget.ItemTip(index)),gadget.ItemIcon(index),gadget.ItemExtra(index))
-	EndMethod
-	
-	Method GadgetLocalized:Int( gadget:TGadget )
-		Return MapContains( _mapLocalized, gadget )
-	EndMethod
-	
-	Method DelocalizeGadget( gadget:TGadget )
-		MapRemove _mapLocalized, gadget
-	EndMethod
 	
 End Type
 
 Global maxgui_driver:TMaxGUIDriver
-
-' Localization Handling
-
-Const LOCALIZATION_OVERRIDE:Int = 2
-
-Private
-
-Function DelocalizeGadget(gadget:TGadget)
-	maxgui_driver.DelocalizeGadget(gadget)
-EndFunction
-
-Function driver_SetLocalizationMode(mode:Int)
-	maxgui_driver.SetLocalizationMode(mode)
-EndFunction
-
-Function driver_SetLocalizationLanguage(language:TMaxGUILanguage)
-	maxgui_driver.SetLanguage(language)
-EndFunction
-
-Global engine_SetLocalizationMode( mode:Int ) = _SetLocalizationMode
-Global engine_SetLocalizationLanguage( language:TMaxGUILanguage ) = _SetLocalizationLanguage
-
-_SetLocalizationMode = driver_SetLocalizationMode
-_SetLocalizationLanguage = driver_SetLocalizationLanguage
-
-TGadget.LocalizeString = LocalizeString
-TGadget.DelocalizeGadget = DelocalizeGadget

@@ -446,9 +446,7 @@ Type TNSGadget Extends TGadget
 				gadget.SetMinimumSize(25,70)
 			EndIf
 		EndIf
-		
-		If LocalizationMode() & LOCALIZATION_OVERRIDE Then LocalizeGadget(gadget,text,"")
-		
+				
 		gadget.SetEnabled(gadget.enabled)
 		
 		Return gadget

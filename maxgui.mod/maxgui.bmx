@@ -728,10 +728,8 @@ of the gadget are replaced with the new @text$.
 For a @Window gadget, #SetGadgetText changes the title. For @{Window}s with a status bar, #SetStatusText
 should be used to independently set the status bar text.
 
-This command will automatically delocalize the gadget - to set localized gadget text, see #LocalizeGadget.
 EndRem
 Function SetGadgetText( gadget:TGadget,Text$ )
-	maxgui_driver.DelocalizeGadget( gadget )
 	gadget.SetText( Text )
 End Function
 
@@ -760,12 +758,9 @@ about: Sets the tooltip for a %{non-item based} positionable MaxGUI gadget. This
 * Desktops
 ]
 
-This command will automatically delocalize the gadget - to set a localized gadget tooltip, see #LocalizeGadget.
-
 See Also: #GadgetTooltip()
 EndRem
 Function SetGadgetToolTip( gadget:TGadget, tip$ )
-	maxgui_driver.DelocalizeGadget( gadget )
 	gadget.SetTooltip( tip )
 End Function
 
@@ -859,43 +854,6 @@ End Rem
 Function SetGadgetFilter( gadget:TGadget,callback(event:TEvent,context:Object),context:Object=Null )
 	gadget.SetFilter callback,context
 End Function
-
-
-' localization (constants declared in maxgui.mod/driver.bmx)
-
-Rem
-bbdoc: Localize a gadget using the supplied localization strings.
-about: The function will use the supplied localization strings to localize a gadget and its text.  The gadget
-will also be marked so that changing the language will update the text.  Calling #DelocalizeGadget or
-#SetGadgetText will disable this behaviour.
-
-Localization strings and their structure are described in #LocalizeString function documentation.
-
-Item-based gadgets should mark any items, whose strings are also wanted to be localized, with the
-GADGETITEM_LOCALIZED flag.  See the @flags parameter of the #AddGadgetItem / #InsertGadgetItem
-/ #ModifyGadgetItem calls.
-
-See Also: #GadgetLocalized, #SetLocalizationMode and #SetLocalizationLanguage.
-EndRem
-Function LocalizeGadget( gadget:TGadget, localizationtext$, localizationtooltip$ = "" )
-	maxgui_driver.SetGadgetLocalization( gadget, localizationtext, localizationtooltip )
-EndFunction
-
-Rem
-bbdoc: Determines whether a gadget is registered as being 'localized'.
-about: See #LocalizeGadget and #SetLocalizationMode for more information.
-EndRem
-Function GadgetLocalized:Int( gadget:TGadget )
-	Return maxgui_driver.GadgetLocalized(gadget)
-EndFunction
-
-Rem
-bbdoc: Delocalizes a gadget so that it's no longer updated if the localization language/mode changes.
-about: See Also: #LocalizeGadget, #SetLocalizationLanguage and #SetLocalizationMode.
-EndRem
-Function DelocalizeGadget( gadget:TGadget )
-	maxgui_driver.DelocalizeGadget( gadget )
-EndFunction
 
 
 ' menus
@@ -1680,7 +1638,6 @@ The @flags parameter can be a combination of the following values:
 * GADGETITEM_NORMAL | A plain gadget item.
 * GADGETITEM_DEFAULT | The item defaults to a selected state.
 * GADGETITEM_TOGGLE | The item alternates between selected states when pressed.
-* GADGETITEM_LOCALIZED | The item text and tooltip are localization strings.
 ]
 
 The @tip$ parameter attaches an optional tooltip to the item.
@@ -1901,7 +1858,6 @@ Function CreateToolbar:TGadget(source:Object,x,y,w,h,window:TGadget,style=0)
 	Local toolbar:TGadget = maxgui_driver.CreateGadget(GADGET_TOOLBAR,"",x,y,w,h,window,style)
 	If toolbar
 		If Not iconstrip Then iconstrip = LoadIconStrip(source)
-		If (LocalizationMode()&LOCALIZATION_OVERRIDE) Then flags:|GADGETITEM_LOCALIZED
 		If iconstrip
 			toolbar.SetIconStrip iconstrip
 			For Local icon=0 Until iconstrip.count

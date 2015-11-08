@@ -613,11 +613,7 @@ Type TGTKWindow Extends TGTKContainer
 			SetStatusText("")
 		EndIf
 
-		If (LocalizationMode() & LOCALIZATION_OVERRIDE) Then
-			LocalizeGadget(Self, label)
-		Else
-			SetText(label)
-		EndIf
+		SetText(label)
 
 		'gtk_window_set_title(handle, gtkCheckAndConvert(label))
 		gtk_window_move(handle, x, y)
@@ -1191,12 +1187,6 @@ Type TGTKButton Extends TGTKGadget
 
 		parent = group
 
-		' localisation
-		If (LocalizationMode() & LOCALIZATION_OVERRIDE) Then
-			MapInsert maxgui_driver._mapLocalized, Self, [label,""]
-			label = LocalizeString(label)
-		End If
-
 		makeButton(label)
 
 		setAccelMapId(label)
@@ -1602,11 +1592,7 @@ Type TGTKLabel Extends TGTKGadget
 			' add the label to the eventbox
 			gtk_container_add(ebox, handle)
 			
-			If (LocalizationMode() & LOCALIZATION_OVERRIDE) Then
-				LocalizeGadget(Self, label)
-			Else
-				SetText(label)
-			EndIf
+			SetText(label)
 		End If
 
 		' Should we add a frame?
@@ -1843,14 +1829,7 @@ Type TGTKMenuItem Extends TGTKGadget
 			windowAccelGroup = Null
 		End If
 
-		' localisation
-		If (LocalizationMode() & LOCALIZATION_OVERRIDE) Then
-			MapInsert maxgui_driver._mapLocalized, Self, [_label,""]
-			_label = LocalizeString(_label)
-		End If
-
 		setAccelMapId(_label)
-
 
 		' this is our menu item / text
 		If _label = Null Or _label.length = 0 Then
@@ -3303,11 +3282,7 @@ Type TGTKPanel Extends TGTKContainer
 			gtk_widget_show(frame)
 
 			' set frame text
-			If (LocalizationMode() & LOCALIZATION_OVERRIDE) Then
-				LocalizeGadget(Self, label)
-			Else
-				SetText(label)
-			EndIf
+			SetText(label)
 			
 			gtk_container_add(frame, handle)
 
@@ -5078,11 +5053,7 @@ Type TGTKTreeViewNode Extends TGTKListWithScrollWindow
 
 		childNode._icon = icon
 		
-		If (LocalizationMode() & LOCALIZATION_OVERRIDE) Then
-			LocalizeGadget(childNode, text)
-		Else
-			childNode.SetText(text)
-		EndIf
+		childNode.SetText(text)
 
 		bmx_gtk_gtktreeiter_free(iter)
 		Return childNode
