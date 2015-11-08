@@ -519,7 +519,7 @@ Type TGTKGUIDriver Extends TMaxGUIDriver
 			Case GADGET_TREEVIEW
 				gtkclass = GTK_TREEVIEW
 			Case GADGET_HTMLVIEW
-				gadget=THelpGadget.Create(x,y,w,h,group,style)
+				return THelpGadget.Create(x,y,w,h,group,style)
 			Case GADGET_LABEL
 				gtkclass = GTK_LABEL
 			Case GADGET_SLIDER
