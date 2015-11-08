@@ -17,34 +17,35 @@
 #define STATUSBARHEIGHT 18
 
 void brl_event_EmitEvent( BBObject *event );
-BBObject *maxgui_maxgui_HotKeyEvent( int key,int mods );
-void maxgui_maxgui_DispatchGuiEvents();
-void maxgui_cocoamaxgui_EmitCocoaOSEvent( NSEvent *event,void *handle,BBObject *gadget );
-int maxgui_cocoamaxgui_EmitCocoaMouseEvent( NSEvent *event,void *handle );
-int maxgui_cocoamaxgui_EmitCocoaKeyEvent( NSEvent *event,void *handle );
-void maxgui_cocoamaxgui_PostCocoaGuiEvent( int ev,void *handle,int data,int mods,int x,int y,BBObject *extra );
 
-int maxgui_cocoamaxgui_FilterChar( void *handle,int key,int mods );
-int maxgui_cocoamaxgui_FilterKeyDown( void *handle,int key,int mods );
+BBObject *maxgui2_maxgui_HotKeyEvent( int key,int mods,void *owner );
+void maxgui2_maxgui_DispatchGuiEvents();
+void maxgui2_cocoamaxgui_EmitCocoaOSEvent( NSEvent *event,void *handle,BBObject *gadget );
+int maxgui2_cocoamaxgui_EmitCocoaMouseEvent( NSEvent *event,void *handle );
+int maxgui2_cocoamaxgui_EmitCocoaKeyEvent( NSEvent *event,void *handle );
+void maxgui2_cocoamaxgui_PostCocoaGuiEvent( int ev,void *handle,int data,int mods,int x,int y,BBObject *extra );
+
+int maxgui2_cocoamaxgui_FilterChar( void *handle,int key,int mods );
+int maxgui2_cocoamaxgui_FilterKeyDown( void *handle,int key,int mods );
 
 static void EmitOSEvent( NSEvent *event,void *handle ){
-	maxgui_cocoamaxgui_EmitCocoaOSEvent( event,handle,&bbNullObject );
+	maxgui2_cocoamaxgui_EmitCocoaOSEvent( event,handle,&bbNullObject );
 }
 
 int HaltMouseEvents;
 
 static int EmitMouseEvent( NSEvent *event,void *handle ){
 	if(([event type] == NSScrollWheel) && ([event deltaY] == 0)) return 0;
-	if(!HaltMouseEvents) return maxgui_cocoamaxgui_EmitCocoaMouseEvent( event,handle );
+	if(!HaltMouseEvents) return maxgui2_cocoamaxgui_EmitCocoaMouseEvent( event,handle );
 }
 
 static int EmitKeyEvent( NSEvent *event,void *handle ){
-	return maxgui_cocoamaxgui_EmitCocoaKeyEvent( event,handle );
+	return maxgui2_cocoamaxgui_EmitCocoaKeyEvent( event,handle );
 }
 
 static void PostGuiEvent( int ev,void *handle,int data,int mods,int x,int y,BBObject *extra ){
 	if (extra==0) extra=&bbNullObject;
-	maxgui_cocoamaxgui_PostCocoaGuiEvent( ev,handle,data,mods,x,y,extra );
+	maxgui2_cocoamaxgui_PostCocoaGuiEvent( ev,handle,data,mods,x,y,extra );
 }
 
 static int filterKeyDownEvent( NSEvent *event,id source ){
@@ -52,7 +53,7 @@ static int filterKeyDownEvent( NSEvent *event,id source ){
 	NSString *ch;
 	key=bbSystemTranslateKey( [event keyCode] );
 	mods=bbSystemTranslateMods( [event modifierFlags] );
-	res=maxgui_cocoamaxgui_FilterKeyDown( source,key,mods );
+	res=maxgui2_cocoamaxgui_FilterKeyDown( source,key,mods );
 	if (res==0) return 0;
 	ch=[event characters];
 	sz=[ch length];
@@ -63,7 +64,7 @@ static int filterKeyDownEvent( NSEvent *event,id source ){
 			case 127:key=8;break;
 			case 63272:key=127;break;
 		}
-		res=maxgui_cocoamaxgui_FilterChar( source,key,mods );
+		res=maxgui2_cocoamaxgui_FilterChar( source,key,mods );
 		if (res==0) return 0;
 	}
 	return 1;
@@ -1906,7 +1907,8 @@ tableColumn:(NSTableColumn *)aTableColumn row:(int)row mouseLocation:(NSPoint)mo
 	case NSKeyDown:
 		if( key=bbSystemTranslateKey( [event keyCode] ) ){
 			int mods=bbSystemTranslateMods( [event modifierFlags] );
-			BBObject *event=maxgui_maxgui_HotKeyEvent( key,mods );
+//			BBObject *event=&bbNullObject;
+			BBObject *event=maxgui2_maxgui_HotKeyEvent( key,mods,&bbNullObject );
 			if( event!=&bbNullObject ){
 				lastHotKey=key;
 				brl_event_EmitEvent( event );
@@ -1947,7 +1949,7 @@ tableColumn:(NSTableColumn *)aTableColumn row:(int)row mouseLocation:(NSPoint)mo
 		for (i=0;i<numberOfFiles;i++)
 		{
 			BBString *name=bbStringFromNSString([files objectAtIndex:i]);
-			maxgui_cocoamaxgui_PostCocoaGuiEvent( BBEVENT_WINDOWACCEPT,self,0,0,0,0,(BBObject*)name );
+			maxgui2_cocoamaxgui_PostCocoaGuiEvent( BBEVENT_WINDOWACCEPT,self,0,0,0,0,(BBObject*)name );
 		}
 		
 	}
@@ -2171,7 +2173,8 @@ tableColumn:(NSTableColumn *)aTableColumn row:(int)row mouseLocation:(NSPoint)mo
 	case NSKeyDown:
 		if( key=bbSystemTranslateKey( [event keyCode] ) ){
 			int mods=bbSystemTranslateMods( [event modifierFlags] );
-			BBObject *event=maxgui_maxgui_HotKeyEvent( key,mods );
+//			BBObject *event=&bbNullObject;
+			BBObject *event=maxgui2_maxgui_HotKeyEvent( key,mods,&bbNullObject );
 			if( event!=&bbNullObject ){
 				lastHotKey=key;
 				brl_event_EmitEvent( event );
@@ -2212,7 +2215,7 @@ tableColumn:(NSTableColumn *)aTableColumn row:(int)row mouseLocation:(NSPoint)mo
 		for (i=0;i<numberOfFiles;i++)
 		{
 			BBString *name=bbStringFromNSString([files objectAtIndex:i]);
-			maxgui_cocoamaxgui_PostCocoaGuiEvent( BBEVENT_WINDOWACCEPT,self,0,0,0,0,(BBObject*)name );
+			maxgui2_cocoamaxgui_PostCocoaGuiEvent( BBEVENT_WINDOWACCEPT,self,0,0,0,0,(BBObject*)name );
 		}
 		
 	}
