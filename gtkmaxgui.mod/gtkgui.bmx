@@ -370,6 +370,13 @@ Type TGTKSystemDriver Extends TSystemDriver
 
 End Type
 
+Type THelpGadget Extends TProxyGadget
+
+	Function Create:TGadget(x:Int, y:Int, w:Int, h:Int, label:String, group:TGadget, style:Int)
+		Return new THelpGadget()
+	End Function
+
+End Type
 
 Type TGTKGUIDriver Extends TMaxGUIDriver
 
@@ -512,7 +519,7 @@ Type TGTKGUIDriver Extends TMaxGUIDriver
 			Case GADGET_TREEVIEW
 				gtkclass = GTK_TREEVIEW
 			Case GADGET_HTMLVIEW
-				gtkclass = GTK_HTMLVIEW
+				gadget=THelpGadget.Create(x,y,w,h,group,style)
 			Case GADGET_LABEL
 				gtkclass = GTK_LABEL
 			Case GADGET_SLIDER

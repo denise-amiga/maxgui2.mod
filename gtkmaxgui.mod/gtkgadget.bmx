@@ -27,16 +27,6 @@ Extern
 	Function g_object_get_menudata:TGTKMenuItem(handle:Byte Ptr, name:Byte Ptr) = "g_object_get_data"
 End Extern
 
-
-Type THelpGadget Extends TProxyGadget
-
-	Function Create:TGadget(x:Int, y:Int, w:Int, h:Int, label:String, group:TGadget, style:Int)
-		Return new THelpGadget()
-	End Function
-
-End Type
-
-
 Rem
 bbdoc: The base for all TGTK gadgets
 End Rem
@@ -147,11 +137,14 @@ Type TGTKGadget Extends TGadget
 	Method setAccelMapId(id:String)
 		accelMapId = id.Replace("&", "")
 	End Method
+	
+	Function CreateHelp:TGadget(y:Int, w:Int, h:Int, label:String, group:TGadget, style:Int)
+		return THelpGadget.Create(x, y ,w , h, label, group, style)
+	End Function
 
 	Function Create:TGTKGadget(GadgetClass:Int, x:Int, y:Int, w:Int, h:Int, label:String, group:TGadget, style:Int, mgclass:Int)
 
-'		Local gadget:TGTKGadget
-		Local gadget:TGadget
+		Local gadget:TGTKGadget
 		
 		Select GadgetClass
 			Case GTK_WINDOW
@@ -168,8 +161,6 @@ Type TGTKGadget Extends TGadget
 				gadget = TGTKMenuItem.CreateMenuItem(label, style, group)
 			Case GTK_TEXTFIELD
 				gadget = TGTKTextField.CreateTextField(x, y ,w , h, label, group, style)
-			Case GTK_HTMLVIEW
-				gadget = THelpGadget.Create(x, y ,w , h, label, group, style)
 			Case GTK_TABBER
 				gadget = TGTKTabber.CreateTabber(x, y ,w , h, label, group, style)
 			Case GTK_PANEL
@@ -200,6 +191,9 @@ Type TGTKGadget Extends TGadget
 				gadget = TGTKCanvas.CreateCanvas(x, y ,w , h, label, group, style)
 		End Select
 
+		' set the maxgui class type
+		gadget.maxguiClass = mgclass
+
 		' map the new gadget - so we can find it later if required
 		If gadget Then
 			GadgetMap.Insert(TGTKBytePtr.Set(gadget.handle),gadget)
@@ -209,8 +203,6 @@ Type TGTKGadget Extends TGadget
 			gadget._SetParent group
 		End If
 		gadget.SetShape x,y,w,h
-		' set the maxgui class type
-		gadget.maxguiClass = mgclass
 
 		Return gadget
 	End Function
