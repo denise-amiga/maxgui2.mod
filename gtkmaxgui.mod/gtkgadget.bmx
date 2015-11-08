@@ -28,7 +28,7 @@ Extern
 End Extern
 
 
-Type THelpGadget Extends ProxyGadget
+Type THelpGadget Extends TProxyGadget
 
 	Function Create:TGadget(x:Int, y:Int, w:Int, h:Int, label:String, group:TGadget, style:Int, mgclass:Int)
 		Return new THelpGadget()
