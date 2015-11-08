@@ -20,10 +20,10 @@ ModuleInfo "Author: Simon Armstrong"
 ModuleInfo "License: zlib/libpng"
 
 ?Win32
-Import MaxGUI.Win32MaxGUIEx
+Import MaxGUI2.Win32MaxGUIEx
 Import "-lunicows"
 ?MacOs
-Import Maxgui.CocoaMaxGui
+Import MaxGUI2.CocoaMaxGui
 ?Linux
-Import Maxgui.GTKMaxGui
+Import MaxGUI2.GTKMaxGui
 ?
