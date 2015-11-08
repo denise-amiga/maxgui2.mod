@@ -137,10 +137,6 @@ Type TGTKGadget Extends TGadget
 	Method setAccelMapId(id:String)
 		accelMapId = id.Replace("&", "")
 	End Method
-	
-	Function CreateHelp:TGadget(y:Int, w:Int, h:Int, label:String, group:TGadget, style:Int)
-		return THelpGadget.Create(x, y ,w , h, label, group, style)
-	End Function
 
 	Function Create:TGTKGadget(GadgetClass:Int, x:Int, y:Int, w:Int, h:Int, label:String, group:TGadget, style:Int, mgclass:Int)
 
