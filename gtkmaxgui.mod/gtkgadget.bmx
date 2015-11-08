@@ -27,6 +27,16 @@ Extern
 	Function g_object_get_menudata:TGTKMenuItem(handle:Byte Ptr, name:Byte Ptr) = "g_object_get_data"
 End Extern
 
+
+Type THelpGadget Extends ProxyGadget
+
+	Function Create:TGadget(x:Int, y:Int, w:Int, h:Int, label:String, group:TGadget, style:Int, mgclass:Int)
+		Return new THelpGadget()
+	End Function
+
+End Type
+
+
 Rem
 bbdoc: The base for all TGTK gadgets
 End Rem
@@ -158,16 +168,7 @@ Type TGTKGadget Extends TGadget
 			Case GTK_TEXTFIELD
 				gadget = TGTKTextField.CreateTextField(x, y ,w , h, label, group, style)
 			Case GTK_HTMLVIEW
-				If gtkmaxgui_htmlview Then
-					gadget = gtkmaxgui_htmlview.CreateHTMLView(x, y ,w , h, label, group, style)
-				Else
-					Throw "No HTMLView specified. You need To Import one!    " + ..
-						" Import BaH.gtkwebmozilla    " + ..
-						" or    " + ..
-						" Import BaH.gtkwebgtkhtml" + ..
-						" or    " + ..
-						" Import BaH.gtkwebkitgtk"
-				End If
+				gadget = THelpGadget.Create(x, y ,w , h, label, group, style)
 			Case GTK_TABBER
 				gadget = TGTKTabber.CreateTabber(x, y ,w , h, label, group, style)
 			Case GTK_PANEL
