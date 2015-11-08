@@ -27,7 +27,7 @@ Import BRL.SystemDefault
 ?Not bmxng
 Import BRL.System
 ?
-Import MaxGUI.MaxGUI
+Import MaxGUI2.MaxGUI
 Import BRL.HTTPStream
 Import BRL.RAMStream
 Import BRL.Pixmap

@@ -1,6 +1,6 @@
 Strict
 
-Import MaxGUI.MaxGUI
+Import MaxGUI2.MaxGUI
 Import Pub.MacOs
 
 Import "-framework WebKit"

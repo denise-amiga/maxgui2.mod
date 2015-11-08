@@ -10,7 +10,7 @@ ModuleInfo "License: zlib/libpng"
 Strict
 
 ?Win32
-Import MaxGUI.MaxGUI
+Import MaxGUI2.MaxGUI
 Import "winimports.bmx"
 
 ' Import "xpmanifest.o"
