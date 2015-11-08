@@ -13,7 +13,7 @@ Your MaxGUI applications should import this module if they want BlitzMax to sele
 * Mac OS X | #MaxGUI.CocoaMaxGUI
 ]
 End Rem
-Module MaxGUI.Drivers
+Module MaxGUI2.Drivers
 
 ModuleInfo "Version: 0.04"
 ModuleInfo "Author: Simon Armstrong"

@@ -24,7 +24,7 @@ Rem
 bbdoc: MaxGUI Linux GTK Driver
 about: This modules provides a Linux GTK driver for #maxgui.maxgui.MAXGUI.
 End Rem
-Module MaxGUI.GTKMaxGUI
+Module MaxGUI2.GTKMaxGUI
 
 ModuleInfo "Version: 1.23"
 ModuleInfo "License: MIT"

@@ -4,7 +4,7 @@ Import MaxGUI.MaxGUI
 Import Pub.MacOs
 
 Import "-framework WebKit"
-Import "cocoa.macos_tiger.m"
+Import "cocoa_maxgui.m"
 
 Extern
 	

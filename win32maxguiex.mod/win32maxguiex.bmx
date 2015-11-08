@@ -1,7 +1,7 @@
 Rem
 bbdoc: MaxGUI Drivers/Win32MaxGUIEx
 End Rem
-Module MaxGUI.Win32MaxGUIEx
+Module MaxGUI2.Win32MaxGUIEx
 
 ModuleInfo "Version: 0.75"
 ModuleInfo "Author: Simon Armstrong, Seb Hollington"

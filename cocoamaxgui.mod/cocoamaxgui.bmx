@@ -5,7 +5,7 @@ This Module provides a Cocoa based #MaxGUI driver For MacOS.
 
 See version.txt for history
 End Rem
-Module MaxGUI.CocoaMaxGUI
+Module MaxGUI2.CocoaMaxGUI
 
 Strict
 

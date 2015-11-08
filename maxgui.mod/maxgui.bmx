@@ -4,7 +4,7 @@ Strict
 Rem
 bbdoc: MaxGUI/MaxGUI
 End Rem
-Module MaxGUI.MaxGUI
+Module MaxGUI2.MaxGUI
 
 ModuleInfo "Version: 1.35"
 ModuleInfo "Author: Simon Armstrong, Mark Sibly"
