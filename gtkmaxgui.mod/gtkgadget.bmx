@@ -30,7 +30,7 @@ End Extern
 
 Type THelpGadget Extends TProxyGadget
 
-	Function Create:TGadget(x:Int, y:Int, w:Int, h:Int, label:String, group:TGadget, style:Int, mgclass:Int)
+	Function Create:TGadget(x:Int, y:Int, w:Int, h:Int, label:String, group:TGadget, style:Int)
 		Return new THelpGadget()
 	End Function
 
