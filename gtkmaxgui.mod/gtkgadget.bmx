@@ -150,7 +150,8 @@ Type TGTKGadget Extends TGadget
 
 	Function Create:TGTKGadget(GadgetClass:Int, x:Int, y:Int, w:Int, h:Int, label:String, group:TGadget, style:Int, mgclass:Int)
 
-		Local gadget:TGTKGadget
+'		Local gadget:TGTKGadget
+		Local gadget:TGadget
 		
 		Select GadgetClass
 			Case GTK_WINDOW
