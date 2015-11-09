@@ -6,6 +6,10 @@ Import "guifont.bmx"
 Import Brl.Map
 
 Type TMaxGUIDriver
+
+	Method new()
+		NullProxy=New TGadget
+	End Metho
 	
 	Method UserName$() Abstract	
 	Method ComputerName$() Abstract

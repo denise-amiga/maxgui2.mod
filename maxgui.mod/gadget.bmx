@@ -774,7 +774,7 @@ Type TGadget
 	End Method
 End Type
 
-Global NullProxy:TGadget=New TGadget
+Global NullProxy:TGadget
 
 Type TProxyGadget Extends TGadget
 	Field	proxy:TGadget=NullProxy
