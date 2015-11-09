@@ -373,6 +373,12 @@ Type TGTKGadget Extends TGadget
 		bmx_gtk_gdkcolor_free(color)
 	End Method
 
+	Rem
+	bbdoc: Removes a gadget color
+	End Rem
+	Method RemoveColor()
+	End Method
+
 	' initializes the tooltips, if required.
 	Method initToolTips()
 		If _tooltip = Null Then
