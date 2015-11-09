@@ -9,7 +9,7 @@ Type TMaxGUIDriver
 
 	Method new()
 		NullProxy=New TGadget
-	End Metho
+	End Method
 	
 	Method UserName$() Abstract	
 	Method ComputerName$() Abstract
