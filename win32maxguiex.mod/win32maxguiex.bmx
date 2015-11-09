@@ -563,17 +563,9 @@ Type TWindowsGUIDriver Extends TMaxGUIDriver
 	EndMethod
 
 	Method LoadFont:TGuiFont(name$,size,flags)
-		Return New TWindowsFont.Load(name,Double(size),flags)
-	EndMethod
-	
-	Method LoadFontWithDouble:TGuiFont(name$,size:Double,flags)
 		Return New TWindowsFont.Load(name,size,flags)
 	EndMethod
-	
-	Method LibraryFont:TGuiFont( pFontType% = GUIFONT_SYSTEM, pFontSize:Double = 0, pFontStyle% = FONT_NORMAL )
-		If pFontType = GUIFONT_SYSTEM Then Return TWindowsFont.DefaultFont( pFontSize, pFontStyle ) Else Return Super.LibraryFont( pFontType, pFontSize, pFontStyle )
-	EndMethod
-	
+		
 	Method RequestFont:TGuiFont(font:TGuiFont)
 		Return TWindowsFont.Request(font)
 	EndMethod

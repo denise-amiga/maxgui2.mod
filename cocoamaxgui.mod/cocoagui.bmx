@@ -114,7 +114,7 @@ Type TCocoaMaxGUIDriver Extends TMaxGUIDriver
 	Method New()
 		NSBegin
 		atexit_ NSEnd
-		If Not CocoaGuiFont Then CocoaGuiFont = TCocoaGuiFont(LibraryFont(GUIFONT_SYSTEM))
+		If Not CocoaGuiFont Then CocoaGuiFont = TCocoaGuiFont(DefaultFont())
 	End Method
 	
 	Method UserName$()
@@ -166,16 +166,6 @@ Type TCocoaMaxGUIDriver Extends TMaxGUIDriver
 	Method LoadFontWithDouble:TGuiFont(name$,size:Double,flags)
 		Return CreateFont(NSLoadFont(name,size,flags),flags)
 	End Method
-	
-	Method LibraryFont:TGuiFont( pFontType% = GUIFONT_SYSTEM, pFontSize:Double = 0, pFontStyle% = FONT_NORMAL )
-		If pFontType = GUIFONT_SYSTEM Then
-			Local tmpHandle% = NSGetDefaultFont()
-			If pFontSize <= 0 Then pFontSize = NSFontSize(tmpHandle)
-			Return LoadFontWithDouble( NSFontName(tmpHandle), pFontSize, NSFontStyle(tmpHandle)|pFontStyle )
-		Else
-			Return Super.LibraryFont( pFontType, pFontSize, pFontStyle )
-		EndIf
-	EndMethod
 	
 	Method LookupColor( colorindex:Int, red:Byte Var, green:Byte Var, blue:Byte Var )
 		

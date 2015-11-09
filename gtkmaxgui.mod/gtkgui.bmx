@@ -442,30 +442,11 @@ Type TGTKGUIDriver Extends TMaxGUIDriver
 
 	End Method
 
-	Method LibraryFont:TGuiFont( fontType:Int = GUIFONT_SYSTEM, size:Double = 0, style:Int = FONT_NORMAL )
-		If fontType = GUIFONT_SYSTEM Then
-			Local defaultStyle:Byte Ptr = gtk_widget_get_default_style()
-			Local font:Byte Ptr = bmx_gtk_style_get_fontdesc(defaultStyle)
-			
-			Local f:TGuiFont = getGuiFontFromPangoDescription(font)
-			TGtkGuiFont(f).fontDesc = Null
-
-			If size <= 0 Then
-				size = f.size
-			End If
-
-			Return LoadFontWithDouble( f.name, size, f.style | style )
-		Else
-			Return Super.LibraryFont( fontType, size, style )
-		EndIf
-	End Method
-
-	Method LoadFontWithDouble:TGuiFont(name:String, size:Double, flags:Int)
+	Method LoadFont:TGuiFont(name:String, size#, flags)
 		Local font:TGuiFont = New TGTKGuiFont
 		font.name = name
 		font.size = size
-		font.style = flags
-		
+		font.style = flags		
 		Return DoLoadFont(font)
 	End Method
 

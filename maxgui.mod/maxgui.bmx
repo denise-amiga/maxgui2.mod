@@ -185,13 +185,13 @@ parameters.
 
 See Also: #RequestFont, #LookupGuiFont, #FontName, #FontSize and #FontStyle
 EndRem
-Function LoadGuiFont:TGuiFont(name$,height:Double,bold=False,italic=False,underline=False,strikethrough=False)
+Function LoadGuiFont:TGuiFont(name$,height,bold=False,italic=False,underline=False,strikethrough=False)
 	Local	flags = FONT_NORMAL
 	If bold flags:|FONT_BOLD
 	If italic flags:|FONT_ITALIC
 	If underline flags:|FONT_UNDERLINE
 	If strikethrough flags:|FONT_STRIKETHROUGH
-	Return maxgui_driver.LoadFontWithDouble(name,height,flags)
+	Return maxgui_driver.LoadFont(name,height,flags)
 End Function
 
 Rem
