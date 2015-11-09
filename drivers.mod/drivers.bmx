@@ -19,6 +19,8 @@ ModuleInfo "Version: 0.04"
 ModuleInfo "Author: Simon Armstrong"
 ModuleInfo "License: zlib/libpng"
 
+Import MaxGUI2.MaxGUI
+
 ?Win32
 Import MaxGUI2.Win32MaxGUIEx
 Import "-lunicows"

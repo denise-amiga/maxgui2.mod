@@ -11,20 +11,20 @@
 #include <ApplicationServices/ApplicationServices.h>
 
 #include <brl.mod/blitz.mod/blitz.h>
-#include <maxgui.mod/maxgui.mod/maxgui.h>
+#include <maxgui2.mod/maxgui.mod/maxgui.h>
 #include <pub.mod/macos.mod/macos.h>
 
 #define STATUSBARHEIGHT 18
 
 void brl_event_EmitEvent( BBObject *event );
 
-BBObject *maxgui2_maxgui_HotKeyEvent( int key,int mods,void *owner );
+BBObject *maxgui2_maxgui_HotKeyEvent( int key,int mods,int owner );
 void maxgui2_maxgui_DispatchGuiEvents();
+
 void maxgui2_cocoamaxgui_EmitCocoaOSEvent( NSEvent *event,void *handle,BBObject *gadget );
 int maxgui2_cocoamaxgui_EmitCocoaMouseEvent( NSEvent *event,void *handle );
 int maxgui2_cocoamaxgui_EmitCocoaKeyEvent( NSEvent *event,void *handle );
 void maxgui2_cocoamaxgui_PostCocoaGuiEvent( int ev,void *handle,int data,int mods,int x,int y,BBObject *extra );
-
 int maxgui2_cocoamaxgui_FilterChar( void *handle,int key,int mods );
 int maxgui2_cocoamaxgui_FilterKeyDown( void *handle,int key,int mods );
 
@@ -571,7 +571,7 @@ static CocoaApp *GlobalApp;
 // CocoaApp
 @implementation CocoaApp
 +(void)dispatchGuiEvents{
-	maxgui_maxgui_DispatchGuiEvents();
+	maxgui2_maxgui_DispatchGuiEvents();
 }
 +(void)delayedGadgetAction:(NSObject*)o{  // See controlTextDidChange
 	PostGuiEvent( BBEVENT_GADGETACTION, 
@@ -1908,7 +1908,7 @@ tableColumn:(NSTableColumn *)aTableColumn row:(int)row mouseLocation:(NSPoint)mo
 		if( key=bbSystemTranslateKey( [event keyCode] ) ){
 			int mods=bbSystemTranslateMods( [event modifierFlags] );
 //			BBObject *event=&bbNullObject;
-			BBObject *event=maxgui2_maxgui_HotKeyEvent( key,mods,&bbNullObject );
+			BBObject *event=(BBObject *)maxgui2_maxgui_HotKeyEvent( key,mods,0 );
 			if( event!=&bbNullObject ){
 				lastHotKey=key;
 				brl_event_EmitEvent( event );
@@ -2174,7 +2174,7 @@ tableColumn:(NSTableColumn *)aTableColumn row:(int)row mouseLocation:(NSPoint)mo
 		if( key=bbSystemTranslateKey( [event keyCode] ) ){
 			int mods=bbSystemTranslateMods( [event modifierFlags] );
 //			BBObject *event=&bbNullObject;
-			BBObject *event=maxgui2_maxgui_HotKeyEvent( key,mods,&bbNullObject );
+			BBObject *event=(BBObject*)maxgui2_maxgui_HotKeyEvent( key,mods,0 );
 			if( event!=&bbNullObject ){
 				lastHotKey=key;
 				brl_event_EmitEvent( event );

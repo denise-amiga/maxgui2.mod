@@ -25,7 +25,8 @@ Global RequestedColor
 
 Type THotKey
 	Field succ:THotKey
-	Field key,mods
+	Field key
+	Field mods
 	Field event:TEvent
 	Field owner
 End Type
@@ -192,43 +193,6 @@ Function LoadGuiFont:TGuiFont(name$,height,bold=False,italic=False,underline=Fal
 	If underline flags:|FONT_UNDERLINE
 	If strikethrough flags:|FONT_STRIKETHROUGH
 	Return maxgui_driver.LoadFont(name,height,flags)
-End Function
-
-Rem
-bbdoc: Loads a suitable GUI font that best matches the supplied font characteristics.
-returns: A new @TGuiFont instance chosen using the supplied parameters.
-about: If the current MaxGUI driver doesn't return a suitable GUI font, then
-a hard-coded fall-back font is returned instead, depending upon the platform.
-
-@pFontType can take one of the following constants:
-
-[ @Constant | @{Windows Fall-Back} | @{Mac OS X Fall-Back} | @{Linux Fall-Back} | @Description
-* GUIFONT_SYSTEM | MS Shell Dlg | Lucida Grande | FreeSerif | Default font used to draw gadgets by the OS.
-* GUIFONT_SERIF | Times New Roman | Times New Roman | FreeSerif | Serif font.
-* GUIFONT_SANSSERIF | Arial | Helvetica | FreeSans | Sans Serif font.
-* GUIFONT_SCRIPT | Comic Sans MS | Comic Sans MS | TSCu_Comic | Handwriting style font.
-* GUIFONT_MONOSPACED | Consolas/Courier New | Courier | Courier | Fixed width font typically used for coding.
-]
-
-@pFontSize specifies the point size the font should be loaded with. If this value is less than or equal to 0, then
-a suitable size is automatically chosen, or a hard-coded alternative is used (usually between 8-13pt).
-
-@pFontStyle should specify any additional font styles that the font should be loaded with. A combination of any of the
-following flags can be used:
-
-[ @Constant | @{Font Style}
-* FONT_BOLD | Bold
-* FONT_ITALIC | Italic
-* FONT_UNDERLINE | Underlined
-* FONT_STRIKETHROUGH | *Strikethrough
-]
-
-%{Note: FONT_STRIKETHROUGH isn't fully supported by all gadgets/platforms.}
-
-See Also: #LookupGuiColor, #RequestFont, #FontName, #FontSize and #FontStyle
-EndRem
-Function LookupGuiFont:TGuiFont( pFontType% = GUIFONT_SYSTEM, pFontSize:Double = 0, pFontStyle% = 0 )
-	Return maxgui_driver.LibraryFont( pFontType, pFontSize, pFontStyle )
 End Function
 
 Rem

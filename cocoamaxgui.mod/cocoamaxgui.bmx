@@ -16,3 +16,5 @@ ModuleInfo "License: zlib/libpng"
 ?MacOs
 Import "cocoagui.bmx"
 ?
+
+Import MaxGUI2.MaxGUI
