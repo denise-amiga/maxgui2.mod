@@ -1907,7 +1907,6 @@ tableColumn:(NSTableColumn *)aTableColumn row:(int)row mouseLocation:(NSPoint)mo
 	case NSKeyDown:
 		if( key=bbSystemTranslateKey( [event keyCode] ) ){
 			int mods=bbSystemTranslateMods( [event modifierFlags] );
-//			BBObject *event=&bbNullObject;
 			BBObject *event=(BBObject *)maxgui2_maxgui_HotKeyEvent( key,mods,0 );
 			if( event!=&bbNullObject ){
 				lastHotKey=key;
@@ -2173,7 +2172,6 @@ tableColumn:(NSTableColumn *)aTableColumn row:(int)row mouseLocation:(NSPoint)mo
 	case NSKeyDown:
 		if( key=bbSystemTranslateKey( [event keyCode] ) ){
 			int mods=bbSystemTranslateMods( [event modifierFlags] );
-//			BBObject *event=&bbNullObject;
 			BBObject *event=(BBObject*)maxgui2_maxgui_HotKeyEvent( key,mods,0 );
 			if( event!=&bbNullObject ){
 				lastHotKey=key;
