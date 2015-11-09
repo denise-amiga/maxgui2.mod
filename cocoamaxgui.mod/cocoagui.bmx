@@ -160,13 +160,9 @@ Type TCocoaMaxGUIDriver Extends TMaxGUIDriver
 	EndFunction
 
 	Method LoadFont:TGuiFont(name$,size,flags)
-		Return CreateFont(NSLoadFont(name,Double(size),flags),flags)
+		Return CreateFont(NSLoadFont(name,size,flags))
 	End Method
-	
-	Method LoadFontWithDouble:TGuiFont(name$,size:Double,flags)
-		Return CreateFont(NSLoadFont(name,size,flags),flags)
-	End Method
-	
+		
 	Method LookupColor( colorindex:Int, red:Byte Var, green:Byte Var, blue:Byte Var )
 		
 		Local r, g, b
